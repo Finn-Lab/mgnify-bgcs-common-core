@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mgnify-bgcs-common-core"
+description = "Shared core utilities for MGnify BGCs"
+dynamic = ["version"]
+requires-python = ">=3.12"
+dependencies = [
+] 
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8,<9",
+  "ruff>=0.6,<1",
+] 
+
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = {file = "version.txt"}

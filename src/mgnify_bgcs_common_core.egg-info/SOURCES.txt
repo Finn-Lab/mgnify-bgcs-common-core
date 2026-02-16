@@ -1,0 +1,9 @@
+pyproject.toml
+version.txt
+src/common_core/__init__.py
+src/common_core/helpers.py
+src/mgnify_bgcs_common_core.egg-info/PKG-INFO
+src/mgnify_bgcs_common_core.egg-info/SOURCES.txt
+src/mgnify_bgcs_common_core.egg-info/dependency_links.txt
+src/mgnify_bgcs_common_core.egg-info/requires.txt
+src/mgnify_bgcs_common_core.egg-info/top_level.txt
