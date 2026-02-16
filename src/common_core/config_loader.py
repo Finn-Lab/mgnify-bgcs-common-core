@@ -9,9 +9,7 @@ from typing import Any, Dict, Mapping, Optional, Type, TypeVar
 import yaml
 from pydantic_settings import BaseSettings, PydanticBaseSettingsSource
 
-
 T = TypeVar("T", bound=BaseSettings)
-
 
 @dataclass(frozen=True)
 class LoaderOptions:
