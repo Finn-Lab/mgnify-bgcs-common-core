@@ -1,5 +1,3 @@
-from typing import Sequence, Collection, Mapping, Any, Dict, List
-
 CLASS_MAP = {
     "NRPS": "NRP",
     "PKS": "Polyketide",

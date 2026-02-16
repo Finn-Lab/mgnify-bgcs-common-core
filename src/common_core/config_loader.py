@@ -11,11 +11,13 @@ from pydantic_settings import BaseSettings, PydanticBaseSettingsSource
 
 T = TypeVar("T", bound=BaseSettings)
 
+
 @dataclass(frozen=True)
 class LoaderOptions:
     """
     Generic options. Each script can pass its own env prefix and .env path, etc.
     """
+
     env_prefix: str = ""
     env_nested_delimiter: str = "__"
     env_file: Optional[str] = ".env"
@@ -64,22 +66,33 @@ def _build_env_map(env_file: Optional[str], case_sensitive: bool) -> Dict[str, s
     return {k.lower(): v for k, v in env.items()}
 
 
-def _expand_env_in_str(value: str, env_map: Mapping[str, str], *, case_sensitive: bool) -> str:
+def _expand_env_in_str(
+    value: str, env_map: Mapping[str, str], *, case_sensitive: bool
+) -> str:
     def repl(match: re.Match[str]) -> str:
         name = match.group("name")
         key = name if case_sensitive else name.lower()
         if key not in env_map:
-            raise KeyError(f"Environment variable '{name}' not found for YAML interpolation")
+            raise KeyError(
+                f"Environment variable '{name}' not found for YAML interpolation"
+            )
         return env_map[key]
 
     return _ENV_PATTERN.sub(repl, value)
 
 
-def _expand_env_in_data(obj: Any, env_map: Mapping[str, str], *, case_sensitive: bool) -> Any:
+def _expand_env_in_data(
+    obj: Any, env_map: Mapping[str, str], *, case_sensitive: bool
+) -> Any:
     if isinstance(obj, dict):
-        return {k: _expand_env_in_data(v, env_map, case_sensitive=case_sensitive) for k, v in obj.items()}
+        return {
+            k: _expand_env_in_data(v, env_map, case_sensitive=case_sensitive)
+            for k, v in obj.items()
+        }
     if isinstance(obj, list):
-        return [_expand_env_in_data(v, env_map, case_sensitive=case_sensitive) for v in obj]
+        return [
+            _expand_env_in_data(v, env_map, case_sensitive=case_sensitive) for v in obj
+        ]
     if isinstance(obj, str):
         return _expand_env_in_str(obj, env_map, case_sensitive=case_sensitive)
     return obj
@@ -109,7 +122,9 @@ def load_settings(
 
     # Interpolate ${ENV_VAR} occurrences in YAML using OS env and optional .env
     env_map = _build_env_map(options.env_file, options.case_sensitive)
-    yaml_data = _expand_env_in_data(yaml_data, env_map, case_sensitive=options.case_sensitive)
+    yaml_data = _expand_env_in_data(
+        yaml_data, env_map, case_sensitive=options.case_sensitive
+    )
 
     # Configure per-call settings behavior without requiring each model to bake it in.
     # Dynamic subclass with the desired model_config.
@@ -157,10 +172,10 @@ def load_settings(
     ):
         return (
             _CliSource(settings_cls),
-            env_settings,        # OS env
-            dotenv_settings,     # .env (treated like env)
+            env_settings,  # OS env
+            dotenv_settings,  # .env (treated like env)
             _YamlSource(settings_cls),
-            init_settings,       # keep last; typically empty
+            init_settings,  # keep last; typically empty
             file_secret_settings,
         )
 

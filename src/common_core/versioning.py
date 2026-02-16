@@ -1,4 +1,4 @@
-from importlib.metadata import PackageNotFoundError, packages_distributions, version
+from importlib.metadata import packages_distributions, version
 
 
 def dist_version(anchor: str, default: str = "unknown") -> str:

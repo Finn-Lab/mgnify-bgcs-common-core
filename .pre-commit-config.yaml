@@ -1,13 +1,43 @@
+default_language_version:
+  python: python3.12
+
+exclude: >
+  (?x)^(
+    \.git/|
+    \.venv/|
+    venv/|
+    env/|
+    \.tox/|
+    \.nox/|
+    build/|
+    dist/|
+    \.eggs/|
+    .*\.egg-info/|
+    \.mypy_cache/|
+    \.ruff_cache/|
+    \.pytest_cache/|
+    \.coverage|
+    coverage\.xml|
+    htmlcov/|
+    __pycache__/|
+    node_modules/|
+    docs/_build/|
+    site/|
+    \.idea/|
+    \.vscode/
+  )
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
       - id: trailing-whitespace
-        exclude: ^\.github/workflows/
+        exclude: ^(\.github/workflows/)
       - id: end-of-file-fixer
-        exclude: ^\.github/workflows/
+        exclude: ^(\.github/workflows/)
       - id: check-merge-conflict
       - id: check-added-large-files
+        args: [--maxkb=50000]
 
   - repo: https://github.com/psf/black
     rev: 24.10.0
@@ -19,9 +49,3 @@ repos:
     hooks:
       - id: ruff
         args: ["--fix","--exit-zero"]
-
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
-    hooks:
-      - id: check-added-large-files
-        args: [--maxkb=50000] 
