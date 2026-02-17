@@ -13,14 +13,14 @@ from common_core.logging_setup import LoggingConfig, setup_logging
 log = logging.getLogger(__name__)
 
 
-class S3Config(BaseModel):
+class ExampleDbConfig(BaseModel):
     bucket: str
     prefix: str = ""
 
 
 class WorkerASettings(BaseSettings):
     job_name: str = "worker-example"
-    s3: S3Config
+    exampledb: ExampleDbConfig
 
     api_token: str = Field(repr=False)
 
@@ -31,8 +31,8 @@ def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser()
     p.add_argument("--config", help="Path to YAML config for this job")
     p.add_argument("--job-name")
-    p.add_argument("--s3-bucket")
-    p.add_argument("--s3-prefix")
+    p.add_argument("--exampledb-bucket")
+    p.add_argument("--exampledb-prefix")
     p.add_argument("--log-level")
     return p.parse_args()
 
@@ -43,10 +43,10 @@ def main() -> None:
     cli_overrides = {}
     if args.job_name:
         cli_overrides["job_name"] = args.job_name
-    if args.s3_bucket:
-        cli_overrides.setdefault("s3", {})["bucket"] = args.s3_bucket
-    if args.s3_prefix:
-        cli_overrides.setdefault("s3", {})["prefix"] = args.s3_prefix
+    if args.exampledb_bucket:
+        cli_overrides.setdefault("exampledb", {})["bucket"] = args.exampledb_bucket
+    if args.exampledb_prefix:
+        cli_overrides.setdefault("exampledb", {})["prefix"] = args.exampledb_prefix
     if args.log_level:
         cli_overrides.setdefault("logging", {})["level"] = args.log_level
 

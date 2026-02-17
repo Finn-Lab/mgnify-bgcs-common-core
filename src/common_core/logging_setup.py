@@ -5,17 +5,20 @@ import logging
 from logging.config import dictConfig
 from typing import Any, Dict, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing_extensions import Literal
 
 
 class LoggingConfig(BaseModel):
     level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = "INFO"
-    json: bool = False
+    json_: bool = Field(False, alias="json")
     file: Optional[str] = None
     third_party_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = (
         "WARNING"
     )
+
+    class Config:
+        allow_population_by_field_name = True
 
 
 class JsonLineFormatter(logging.Formatter):
@@ -36,7 +39,7 @@ def setup_logging(cfg: LoggingConfig) -> None:
         "console": {
             "class": "logging.StreamHandler",
             "level": cfg.level,
-            "formatter": "json" if cfg.json else "standard",
+            "formatter": "json" if cfg.json_ else "standard",
             "stream": "ext://sys.stdout",
         }
     }
@@ -44,7 +47,7 @@ def setup_logging(cfg: LoggingConfig) -> None:
         handlers["file"] = {
             "class": "logging.FileHandler",
             "level": cfg.level,
-            "formatter": "json" if cfg.json else "standard",
+            "formatter": "json" if cfg.json_ else "standard",
             "filename": cfg.file,
             "encoding": "utf-8",
         }
