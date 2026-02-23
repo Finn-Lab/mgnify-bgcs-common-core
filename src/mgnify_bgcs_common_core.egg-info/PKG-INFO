@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: mgnify-bgcs-common-core
-Version: 1.0.0
+Version: 1.1.0
 Summary: Shared core utilities for MGnify BGCs
 Requires-Python: >=3.12
 Provides-Extra: dev

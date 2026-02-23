@@ -1,7 +1,11 @@
 pyproject.toml
 version.txt
 src/common_core/__init__.py
+src/common_core/config_loader.py
 src/common_core/helpers.py
+src/common_core/logging_setup.py
+src/common_core/versioning.py
+src/common_core/worker_template.py
 src/mgnify_bgcs_common_core.egg-info/PKG-INFO
 src/mgnify_bgcs_common_core.egg-info/SOURCES.txt
 src/mgnify_bgcs_common_core.egg-info/dependency_links.txt
