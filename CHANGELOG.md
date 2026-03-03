@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/Finn-Lab/mgnify-bgcs-common-core/compare/mgnify-bgcs-common-core-v1.2.0...mgnify-bgcs-common-core-v1.2.1) (2026-03-03)
+
+
+### Bug Fixes
+
+* **ci:** stop tracking build artifacts ([e4e8565](https://github.com/Finn-Lab/mgnify-bgcs-common-core/commit/e4e8565e796d285e321833a3d852e358fc7bd2a9))
+
 ## [1.2.0](https://github.com/Finn-Lab/mgnify-bgcs-common-core/compare/mgnify-bgcs-common-core-v1.1.0...mgnify-bgcs-common-core-v1.2.0) (2026-02-23)
 
 
