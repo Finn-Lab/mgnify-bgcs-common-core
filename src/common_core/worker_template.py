@@ -61,7 +61,7 @@ def main() -> None:
 
     pkg_version = dist_version(__name__)
     log.info("running %s version %s", cfg.job_name, pkg_version)
-    log.info("config: %s", cfg.dict(exclude={"api_token"}))
+    log.info("config: %s", cfg.model_dump(exclude={"api_token"}))
 
     # Worker logic here...
 
